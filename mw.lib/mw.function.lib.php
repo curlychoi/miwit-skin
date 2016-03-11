@@ -2809,11 +2809,15 @@ function mw_get_youtube_thumb($wr_id, $url, $datetime='')
     $file = mw_thumb_jpg("$thumb_path/{$wr_id}");
     //if (is_mw_file($file)) return;
 
+    $p = parse_url($url);
+
     if (preg_match("/^https?:\/\/youtu.be\/(.*)$/i", $url, $mat)) {
-        $v = $mat[1];
+        //$v = $mat[1];
+        $v = basename($p['path']);
     }
     elseif (preg_match("/\/\/.*youtube\.com\/.*v[=\/]([a-zA-Z0-9-_]+)?/i", $url, $mat)) {
-        $v = $mat[1];
+        parse_str($p['query']);
+        //$v = $mat[1];
     }
     elseif (preg_match('/player.vimeo.com\/video\/(\d+)$/', $url, $mat)) {
         mw_get_vimeo_thumb($wr_id, $url, $datetime);
@@ -3049,9 +3053,10 @@ function mw_video_wrapper($content)
 
 function mw_youtube_pattern($content)
 {
+    $content = stripslashes($content);
     $pt = array();
-    $pt[] = "/\[<a href=\"(https?:\/\/youtu\.be\/[^\"]+)\"[^>]+>[^<]+<\/a>\]/ie";
-    $pt[] = "/\[<a href=\"(https?:\/\/www\.youtube\.com\/[^\"]+)\"[^>]+>[^<]+<\/a>\]/ie";
+    $pt[] = "/\[<a href=\"(https?:\/\/youtu\.be\/[^\"]+)\">[^<]+<\/a>\]/ie";
+    $pt[] = "/\[<a href=\"(https?:\/\/www\.youtube\.com\/[^\"]+)\">[^<]+<\/a>\]/ie";
     $pt[] = "/\[(https?:\/\/youtu\.be\/[^\]]+)\]/ie";
     $pt[] = "/\[(https?:\/\/www\.youtube\.com\/[^\]]+)\]/ie";
 
