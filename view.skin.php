@@ -308,7 +308,10 @@ $cnt = 0;
 for ($i=1; $i<=$g4[link_count]; $i++) {
     if ($view[link][$i]) {
         $cnt++;
-        $link = cut_str($view[link][$i], 70);
+        if (mw_is_mobile_builder() or G5_IS_MOBILE)
+            $link = cut_str($view[link][$i], 40);
+        else
+            $link = cut_str($view[link][$i], 70);
 ?>
 <div class="mw_basic_view_link">
     <?php if ($is_admin && (strstr($link, "youtu") or strstr($link, "vimeo"))) { ?>
