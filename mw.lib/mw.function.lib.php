@@ -3055,8 +3055,8 @@ function mw_youtube_pattern($content)
 {
     $content = stripslashes($content);
     $pt = array();
-    $pt[] = "/\[<a href=\"(https?:\/\/youtu\.be\/[^\"]+)\">[^<]+<\/a>\]/ie";
-    $pt[] = "/\[<a href=\"(https?:\/\/www\.youtube\.com\/[^\"]+)\">[^<]+<\/a>\]/ie";
+    $pt[] = "/\[<a href=\"(https?:\/\/youtu\.be\/[^\"]+)\"[^>]*>[^<]+<\/a>\]/ie";
+    $pt[] = "/\[<a href=\"(https?:\/\/www\.youtube\.com\/[^\"]+)\"[^>]*>[^<]+<\/a>\]/ie";
     $pt[] = "/\[(https?:\/\/youtu\.be\/[^\]]+)\]/ie";
     $pt[] = "/\[(https?:\/\/www\.youtube\.com\/[^\]]+)\]/ie";
 
