@@ -1241,6 +1241,8 @@ function comment_box(comment_id, work, mb_nick)
         $("#comment_id").val(comment_id);
         $("#w").val(work);
 
+        $("#wr_content").autogrow();
+
         save_before = el_id;
 
         <? if (!is_g5() && $is_comment_editor && $mw_basic[cf_editor] == "cheditor") { ?> ed_wr_content.run(); <? } ?> 
