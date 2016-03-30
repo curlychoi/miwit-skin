@@ -1470,16 +1470,14 @@ function bc_code($str, $is_content=1, $only_admin=0) {
             );
             $str = preg_replace_callback("/include\(\"([^\"]+)\"\)/i", $callback, $str);
         }
+
+        $str = preg_replace('/\[soundcloud url="([^"]+)".*params="([^"]+)".*\]/ie', "mw_soundcloud('\\1', '\\2')", $str);
+        $str = preg_replace('/\[soundcloud url=.*<A HREF="([^"]+)".*<\/A>.*params=&#034;([^;]+); [^\]]+\]/ie', "mw_soundcloud('\\1', '\\2')", $str);
     }
     if ($only_admin) {
         $callback = create_function('$arg', 'return mw_pay_banner($arg[1], $arg[2]);');
         $str = preg_replace_callback("/\<\?=mw_pay_banner\([\"\']?([^\"\']+)[\"\']?,[\s]*[\"\']?([^\"\']+)[\"\']?\)\?\>/i",
             $callback, $str);
-
-        /*$str = preg_replace_callback("/\<\?=mw_pay_banner\([\"\']?([^\"\']+)[\"\']?,[\s]*[\"\']?([^\"\']+)[\"\']?\)\?\>/i",
-        function ($arg) {
-            return mw_pay_banner($arg[1], $arg[2]);
-        }, $str);*/
     }
 
     $str = preg_replace("/\[line\]/iU", "<hr/>", $str);
@@ -3017,24 +3015,6 @@ function mw_youtube($url, $q=0)
 
 function mw_youtube_content($content, $q='')
 {
-/*
-    $pt1 = "/\[<a href=\"(https?:\/\/youtu\.be\/[^\"]+)\"[^>]+>[^<]+<\/a>\]/ie";
-    $pt2 = "/\[<a href=\"(https?:\/\/www\.youtube\.com\/[^\"]+)\"[^>]+>[^<]+<\/a>\]/ie";
-    $pt3 = "/\[(https?:\/\/youtu\.be\/[^\]]+)\]/ie";
-    $pt4 = "/\[(https?:\/\/www\.youtube\.com\/[^\]]+)\]/ie";
-
-    $pt5 = "/\[(https?:\/\/vimeo\.com\/[^]]+)\]/ie"; 
-    $pt6 = "/\[<a href=\"(https?:\/\/vimeo\.com\/[^\"]+)\"[^>]+>[^<]+<\/a>\]/ie"; 
-
-    $content = preg_replace($pt1, "mw_youtube('\\1', '$q')", $content);
-    $content = preg_replace($pt2, "mw_youtube('\\1', '$q')", $content);
-    $content = preg_replace($pt3, "mw_youtube('\\1', '$q')", $content);
-    $content = preg_replace($pt4, "mw_youtube('\\1', '$q')", $content);
-
-    $content = preg_replace($pt5, "mw_vimeo('\\1', '$q')", $content); 
-    $content = preg_replace($pt6, "mw_vimeo('\\1', '$q')", $content); 
-*/
-
     $pt = mw_youtube_pattern($content);
     if ($pt)
         $content = preg_replace($pt, "mw_youtube('\\1', '$q')", $content);
@@ -3044,6 +3024,18 @@ function mw_youtube_content($content, $q='')
         $content = preg_replace($pt, "mw_vimeo('\\1', '$q')", $content);
 
     return mw_video_wrapper($content);
+}
+
+function mw_soundcloud($src, $param)
+{
+    $src = str_replace('&#034;', '', $src);
+    $src = str_replace('&#034', '', $src);
+    $param = str_replace('&#034;', '', $param);
+    $param = str_replace('&#034', '', $param);
+
+    $s = sprintf('<iframe width="100%%" height="162" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=%s&%s"></iframe>', urlencode($src), urlencode($param));
+
+    return $s;
 }
 
 function mw_video_wrapper($content)
