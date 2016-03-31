@@ -1203,8 +1203,8 @@ if ($mw_basic[cf_include_tail] && is_mw_file($mw_basic[cf_include_tail]) && strs
 if ('<?=$sca?>') document.fcategory.sca.value = '<?=urlencode($sca)?>';
 <? } ?>
 if ('<?=$stx?>') {
-    document.fsearch.sfl.value = '<?=$sfl?>';
-    document.fsearch.sop.value = '<?=$sop?>';
+    $("form[name=fsearch]").find("select[name=sfl]").val("<?php echo $sfl?>");
+    $("form[name=fsearch]").find("select[name=sop]").val("<?php echo $sop?>");
 }
 </script>
 
