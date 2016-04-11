@@ -1611,12 +1611,23 @@ function mw_delete_row($board, $write, $save_log=false, $save_message='삭제되
     $lib_file_path = "$board_skin_path/mw.lib/mw.skin.basic.lib.php";
     if (is_mw_file($lib_file_path)) include($lib_file_path);
 
+    $delete_log = false;
+    if (($write['wr_is_comment'] && $mw_basic['cf_comment_delete_log'])
+        or (!$write['wr_is_comment'] && $mw_basic['cf_delete_log'])) {
+        $delete_log = true;
+    }
+
     if (trim($mw_basic['cf_trash']) && $mw_basic['cf_trash'] != $board['bo_table'] && !$write['wr_is_comment']) {
         mw_row_delete_point($board, $write);
-        mw_move($board, $write['wr_id'], $mw_basic['cf_trash'], 'move');
-        if (is_g5())
-            delete_cache_latest($board['bo_table']);
-        return;
+        if ($delete_log) {
+            mw_move($board, $write['wr_id'], $mw_basic['cf_trash'], 'copy');
+        }
+        else {
+            mw_move($board, $write['wr_id'], $mw_basic['cf_trash'], 'move');
+            if (is_g5())
+                delete_cache_latest($board['bo_table']);
+            return;
+        }
     }
 
     $count_write = 0;
@@ -1776,12 +1787,6 @@ function mw_delete_row($board, $write, $save_log=false, $save_message='삭제되
                 $count_comment++;
             }
         }
-    }
-
-    $delete_log = false;
-    if (($write['wr_is_comment'] && $mw_basic['cf_comment_delete_log'])
-        or (!$write['wr_is_comment'] && $mw_basic['cf_delete_log'])) {
-        $delete_log = true;
     }
 
     // 게시글 삭제
