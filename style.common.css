@@ -2370,7 +2370,7 @@ img {
 #mw_basic .gall_list div { margin:0 0 5px 0; }
 #mw_basic .gall_list div.gall_image img.thumb { border:1px solid #ddd; }
 #mw_basic .gall_list div.gall_subject { margin:5px 0 12px 0; line-height:15px; height:20px; overflow:hidden; text-align:center; }
-#mw_basic .gall_list div.gall_subject a { font:bold 15px 'malgun gothic'; }
+#mw_basic .gall_list div.gall_subject a { font:bold 15px 'malgun gothic'; text-decoration:none; }
 #mw_basic .gall_list div.gall_hot { position:absolute; width:40px; height:40px; margin:-10px 0 0 -10px; }
 #mw_basic .gall_list div.gall_hot { text-align:center; }
 #mw_basic .gall_list div.gall_hot div { margin:11px 0 0 0; font:bold 12px 'Malgun Gothic'; color:#000; letter-spacing:-1px; }
