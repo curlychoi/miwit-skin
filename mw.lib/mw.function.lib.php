@@ -1619,7 +1619,7 @@ function mw_delete_row($board, $write, $save_log=false, $save_message='삭제되
 
     if (trim($mw_basic['cf_trash']) && $mw_basic['cf_trash'] != $board['bo_table'] && !$write['wr_is_comment']) {
         mw_row_delete_point($board, $write);
-        if ($delete_log) {
+        if ($delete_log or $save_log) {
             mw_move($board, $write['wr_id'], $mw_basic['cf_trash'], 'copy');
         }
         else {
