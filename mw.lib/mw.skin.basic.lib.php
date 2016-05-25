@@ -287,6 +287,13 @@ if (is_mw_file("{$kakao_collect_path}/_config.php")) {
     $basic_run_time = mw_time_log($basic_run_time, "[basic] include kakao_config");
 }
 
+// 인스타그램 수집기
+$instagram_collect_path = "{$g4['path']}/plugin/instagram-collect";
+if (is_mw_file("{$instagram_collect_path}/_config.php")) {
+    include_once("{$instagram_collect_path}/_config.php");
+    $basic_run_time = mw_time_log($basic_run_time, "[basic] include instagram_config");
+}
+
 // MarketDB
 $marketdb_path = "{$g4['path']}/plugin/marketdb";
 if (is_mw_file("{$marketdb_path}/_config.php")) {

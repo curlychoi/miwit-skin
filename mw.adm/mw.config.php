@@ -3455,6 +3455,7 @@ label {
                 <option value="rss">RSS 수집기 <? if (is_file("$rss_collect_path/_lib.php")) echo '(설치됨)'; else echo '(설치안됨)'; ?></option>
                 <option value="youtube">Youtube 수집기 <? if (is_file("$youtube_collect_path/_lib.php")) echo '(설치됨)'; else echo '(설치안됨)'; ?></option>
                 <option value="kakao">카카오스토리 수집기 <? if (is_file("$kakao_collect_path/_lib.php")) echo '(설치됨)'; else echo '(설치안됨)'; ?></option>
+                <option value="instagram">인스타그램 수집기 <? if (is_file("$instagram_collect_path/_lib.php")) echo '(설치됨)'; else echo '(설치안됨)'; ?></option>
             </select>
             <span class="cf_info" id="cf_collect_info"></span>  
             <script>
