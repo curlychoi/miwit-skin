@@ -2747,6 +2747,9 @@ function mw_jwplayer($url, $opt="")
         $opt .= ", width:'{$size[0]}', height:'{$size[1]}' ";
     }
 
+    if ($mw_basic['cf_jwplayer_autostart']) {
+        $opt = ', autostart:true ' . $opt;
+    }
     $buffer .= " file:'{$url}' {$opt} }); </script>";
 
     $jwplayer_count++;

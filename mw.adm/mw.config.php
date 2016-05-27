@@ -1618,7 +1618,11 @@ label {
                 <option value="jwplayer6">jwplayer6</option>
                 <option value="jwplayer5">jwplayer5</option>
 	    </select>
-	    <script> document.cf_form.cf_jwplayer_version.value = "<?=$mw_basic[cf_jwplayer_version]?>"; </script>
+            , 자동재생 <input type="checkbox" name="cf_jwplayer_autostart" id="cf_jwplayer_autostart" value="1">
+	    <script>
+            document.cf_form.cf_jwplayer_version.value = "<?=$mw_basic[cf_jwplayer_version]?>";
+            document.cf_form.cf_jwplayer_autostart.checked = "<?=$mw_basic['cf_jwplayer_autostart']?>";
+            </script>
 	</div>
     </div>
 
