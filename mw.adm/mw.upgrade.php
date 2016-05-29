@@ -1422,4 +1422,5 @@ if (is_null($mw_basic[cf_talent_market])) {
     sql_query("alter table {$mw['basic_config_table']} add cf_emoticon varchar(50) not null", false);
 
     sql_query("alter table {$mw['basic_config_table']} add cf_prev_next varchar(1) not null", false);
+    sql_query("alter table {$mw['basic_config_table']} add cf_comment_image_no varchar(1) not null", false);
 

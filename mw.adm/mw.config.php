@@ -1021,6 +1021,15 @@ label {
 	</div>
     </div>
 
+    <div class="cf_item">
+	<div class="cf_title"> <input type=checkbox name=chk[cf_comment_image_no] value=1>&nbsp; 댓글 프로필 이미지 </div>
+	<div class="cf_content">
+	    <label><input type="checkbox" name="cf_comment_image_no" value=1> 사용안함</label>
+	    <script> document.cf_form.cf_comment_image_no.checked = "<?php echo $mw_basic[cf_comment_image_no]?>"; </script>
+	</div>
+    </div>
+
+
     <div class="block"></div>
 
 </div> <!-- tabs-1 -->
