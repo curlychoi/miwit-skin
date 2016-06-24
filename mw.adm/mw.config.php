@@ -3821,6 +3821,42 @@ label {
     </div>
     <?php } ?>
 
+    <div class="cf_item">
+	<div class="cf_title"> <input type=checkbox disabled>&nbsp; 분류별 구매 </div>
+	<div class="cf_content" height=80>
+            <label><input type="checkbox" name="cf_contents_shop_category" value="1">분류별 구매 사용</label>
+            <script>$("input[name=cf_contents_shop_category]").prop("checked", "<?php echo $mw_basic['cf_contents_shop_category']?>");</script>
+            <table border="0" cellpadding="3" cellspacing="1" class="mw_category">
+            <tr>
+                <td width="120">분류명</td>
+                <td><?php echo $mw_cash['cf_cash_name']?></td>
+                <td>사용</td>
+            </tr>
+            <?php
+            $ca_list = array_filter(explode("|", $board['bo_category_list']), "trim");
+            $db_list = implode("','", $ca_list);
+
+            foreach ((array)$ca_list as $ca_name) {
+                $row = mw_category_info($ca_name);
+                ?>
+                <tr>
+                    <td><?php echo $ca_name?></td>
+                    <td>
+                        <input type="text" size="10" maxlength="7" id="ca_cash_<?php echo $row['ca_id']?>" name="ca_cash_<?php echo $row['ca_id']?>" value="<?php echo $row['ca_cash']?>">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="ca_cash_use_<?php echo $row['ca_id']?>" id="ca_cash_use_<?php echo $row['ca_id']?>" value="1">
+                        <script>$("#ca_cash_use_<?php echo $row['ca_id']?>").prop("checked", "<?php echo $row['ca_cash_use']?>");</script>
+                    </td>
+                </tr>
+                <?php
+            }
+            ?>
+            </table>
+	</div>
+    </div>
+
+
     <div class="block"></div>
 </div> <!-- tabs-8 -->
 

@@ -506,6 +506,15 @@ if ($mw_basic[cf_reward]) {
 // 컨텐츠샵
 $mw_price = "";
 if ($mw_basic[cf_contents_shop]) {
+    if ($mw_basic['cf_contents_shop_category']) { // 분류별 결제
+        $sql = sprintf(" select * from %s where bo_table = '%s' and ca_name = '%s'", $mw['category_table'], $bo_table, $list[$i]['ca_name']);
+        $ro2 = sql_fetch($sql);
+
+        if ($ro2['ca_cash']) {
+            $list[$i]['wr_contents_price'] = $ro2['ca_cash'];
+        }
+    }
+
     if ($list[$i][is_notice])
         $mw_price = '&nbsp;';
     elseif (!$list[$i][wr_contents_price])

@@ -2960,4 +2960,17 @@ nav.pg_wrap {
 
 }
 
+#mw_basic .mw_basic_contents_shop_pay_button {
+    text-align:center;
+    height:30px;
+    line-height:30px;
+    background-color:#2c3e50;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+   -moz-user-select: -moz-none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
 

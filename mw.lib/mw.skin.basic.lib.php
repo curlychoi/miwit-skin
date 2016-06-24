@@ -556,4 +556,14 @@ if ($mw_basic['cf_thumb_round']) {
 }
 $mw_basic['cf_umz'] = 0;
 
+if ($mw_basic['cf_contents_shop_category'] and $write) { // 분류별 결제
+    $sql = sprintf(" select * from %s where bo_table = '%s' and ca_name = '%s'", $mw['category_table'], $bo_table, $write['ca_name']);
+    $ro2 = sql_fetch($sql);
+
+    if ($ro2['ca_cash']) {
+        $write['wr_contents_price'] = $ro2['ca_cash'];
+        $view['wr_contents_price'] = $ro2['ca_cash'];
+    }
+}
+
 

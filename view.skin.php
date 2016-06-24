@@ -352,6 +352,17 @@ for ($i=1; $i<=$g4[link_count]; $i++) {
 }
 ?>
 
+<?php ob_start(); if ($mw_basic['cf_contents_shop'] == "1" and !$is_buy) {  // 배추컨텐츠샵-다운로드 결제 ?>
+<div class="mw_basic_contents_shop_pay_button">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i> 구매하기
+</div>
+<script>
+$(".mw_basic_contents_shop_pay_button").click(function () {
+    buy_contents('<?php echo $bo_table?>', '<?php echo $wr_id?>');
+});
+</script>
+<?php } $buy_button = ob_get_contents(); ob_end_flush(); ?>
+
 <script>
 $(document).ready(function () {
     $("#post_url").on('focus, mouseup, click', function () {
@@ -639,6 +650,8 @@ if ($bomb) {
     </script>
 <?php } ?>
 
+<?php echo $buy_button; ?>
+
 <?php
 //if ($is_signature && $signature && !$view[wr_anonymous] && $mw_basic[cf_attribute] != "anonymous") // 서명출력
 if ($is_signature && !$view[wr_anonymous] && $mw_basic[cf_attribute] != "anonymous") // 서명출력
@@ -704,6 +717,7 @@ if ($is_signature && !$view[wr_anonymous] && $mw_basic[cf_attribute] != "anonymo
     </table>
 </div><!--mw_basic_view_signature-->
 <?php } ?>
+
 
 <?php if ($mw_basic[cf_quiz] && is_file($quiz_path."/view.php")) { // 퀴즈 ?>
 <div class="mw_basic_view_quiz">
@@ -1154,54 +1168,6 @@ function btn_comment_hide() {
 }
 </script>
 <? } ?>
-
-<?php
-if ($mw_basic[cf_contents_shop] == "1")  // 배추컨텐츠샵-다운로드 결제
-{
-    $is_per = true;
-    $is_buy = false;
-    $is_per_msg = '예외오류';
-
-    if (!$is_member) {
-	//alert("로그인 해주세요.");
-        $is_per = false;
-	$is_per_msg = "로그인 해주세요.";
-    }
-
-    //if (!mw_is_buy_contents($member[mb_id], $bo_table, $wr_id) && $is_admin != "super")
-    $con = mw_is_buy_contents($member[mb_id], $bo_table, $wr_id);
-    if (!$con and $is_per)
-    {
-	//alert("결제 후 다운로드 하실 수 있습니다.");
-        $is_per = false;
-	$is_per_msg = "결제 후 다운로드 하실 수 있습니다.";
-    }
-    else if (!$write[wr_contents_price]) ;
-    else
-    {
-        if ($mw_basic[cf_contents_shop_download_count] and $is_per) {
-            $sql1 = "select count(*) as cnt from $mw_cash[cash_list_table] where rel_table = '$bo_table' and rel_id = '$wr_id' and cl_cash < 0";
-            $row1 = sql_fetch($sql1);
-            $sql2 = "select count(*) as cnt from $mw[download_log_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and dl_datetime > '$con[cl_datetime]'";
-            $row2 = sql_fetch($sql2);
-            if ($row2[cnt] >= ($mw_basic[cf_contents_shop_download_count])) {
-                //alert("다운로드 횟수 ($mw_basic[cf_contents_shop_download_count]회) 를 넘었습니다.\\n\\n재결제 후 다운로드 할 수 있습니다.");
-                $is_per = false;
-                $is_per_msg = "다운로드 횟수 ($mw_basic[cf_contents_shop_download_count]회) 를 넘었습니다.\\n\\n재결제 후 다운로드 할 수 있습니다.";
-            }
-        }
-
-        if ($mw_basic[cf_contents_shop_download_day] and $is_per) {
-            $gap = floor(($g4[server_time] - strtotime($con[cl_datetime])) / (60*60*24));
-            if ($gap >= $mw_basic[cf_contents_shop_download_day]) {
-                //alert("다운로드 기간 ($mw_basic[cf_contents_shop_download_day]일) 이 지났습니다.\\n\\n재결제 후 다운로드 할 수 있습니다.");
-                $is_per = false;
-                $is_per_msg = "다운로드 기간 ($mw_basic[cf_contents_shop_download_day]일) 이 지났습니다.\\n\\n재결제 후 다운로드 할 수 있습니다.";
-            }
-        }
-    }
-}
-?>
 
 <?php if ($mw_basic[cf_contents_shop]) { // 배추컨텐츠샵 ?>
 <script src="<?=$mw_cash[path]?>/cybercash.js"></script>
