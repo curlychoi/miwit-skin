@@ -746,7 +746,6 @@ img {
     word-break:break-all;
     white-space:nowrap;
     overflow:hidden;
-    max-width:0;
     text-overflow:ellipsis;
     color:#000;
     position:static;

@@ -74,6 +74,9 @@ if ($mw_basic[cf_contents_shop]) { // 배추컨텐츠샵
 	//alert("결제 후 다운로드 하실 수 있습니다.");
         $is_per = false;
 	$is_per_msg = "결제 후 다운로드 하실 수 있습니다.";
+
+        if (!$ca_cash_use)
+            $is_per_msg = '현재는 판매하고 있지 않습니다.';
     }
     else if (!$write[wr_contents_price]) ;
     else if ($mw_basic[cf_contents_shop] == '1')

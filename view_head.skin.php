@@ -857,6 +857,9 @@ if ($mw_basic[cf_contents_shop] == "1")  // 배추컨텐츠샵-다운로드 결�
 	//alert("결제 후 다운로드 하실 수 있습니다.");
         $is_per = false;
 	$is_per_msg = "결제 후 다운로드 하실 수 있습니다.";
+
+        if (!$ca_cash_use)
+            $is_per_msg = '현재는 판매하고 있지 않습니다.';
     }
     else if (!$write[wr_contents_price]) ;
     else
@@ -883,5 +886,20 @@ if ($mw_basic[cf_contents_shop] == "1")  // 배추컨텐츠샵-다운로드 결�
         }
     }
     if ($is_per) $is_buy = true;
+
+    if (function_exists("mw_cash_is_membership") and !$is_buy)
+    {
+        $is_membership = @mw_cash_is_membership($member[mb_id], $bo_table, "mp_down");
+
+        if ($is_membership == "no") // 멤버쉽 게시판이 아님
+            ;
+        else if ($is_membership == 'ok') {
+            $is_per = true;
+        }
+        else {
+            $is_per = false;
+            //mw_cash_alert_membership($is_membership);
+        }
+    }
 }
 
