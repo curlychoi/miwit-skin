@@ -39,7 +39,7 @@ if ($delete_href && !strstr($delete_href, "javascript")) $delete_href = "#;\" on
 if (is_reaction_test())
 echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">';
 ?>
-
+<style> <?php echo $cf_css?> </style>
 <?php include_once($board_skin_path."/mw.proc/mw.asset.php")?>
 
 <script> document.title = "<?=strip_tags(addslashes($view[wr_subject]))?>"; </script>

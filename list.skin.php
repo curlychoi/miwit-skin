@@ -216,7 +216,7 @@ $list_run_time = mw_time_log($list_run_time, "[list] new_count");
 if (is_reaction_test())
 echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">';
 ?>
-
+<style> <?php echo $cf_css?> </style>
 <?php if (!defined("_MW5_")) { ?>
 <link href="<?php echo $board_skin_path?>/mw.css/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet">
 <?php } ?>

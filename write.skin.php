@@ -282,6 +282,7 @@ if (!$is_member) {
     if (!$homepage) $homepage = get_cookie("mw_cookie_homepage");
 }
 ?>
+<style> <?php echo $cf_css?> </style>
 <?php include_once($board_skin_path."/mw.proc/mw.asset.php")?>
 <?php
 //==============================================================================
