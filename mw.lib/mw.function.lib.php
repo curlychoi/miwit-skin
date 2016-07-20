@@ -2747,7 +2747,7 @@ function mw_jwplayer($url, $opt="")
         $url = str_replace("../..", $g4[url], $url);
         $url = str_replace("..", $g4[url], $url);
     }
-    if (mw_is_mobile_builder()) {
+    if (mw_is_mobile_builder() or G5_IS_MOBILE) {
         $opt .= ", width:'100%' ";
     }
     elseif ($mw_basic['cf_player_size']) {
