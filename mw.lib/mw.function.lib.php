@@ -1438,6 +1438,14 @@ function bc_code($str, $is_content=1, $only_admin=0) {
     global $g4, $bo_table, $wr_id, $board_skin_path;
 
     if ($is_content) {
+        $html_call = create_function('$arg', '
+            $s = $arg[1];
+            $s = str_replace("[", "&#91;", $s);
+            $s = str_replace("]", "&#93;", $s);
+            return $s;
+        ');
+        $str = preg_replace_callback("/\[bccode\((.*)\)\]/iUs", $html_call, $str);
+
         $str = preg_replace("/\[url:\/\/(.*)\](.*)\[\/url\]/iU", "<a href='http://$1' target='_blank'>$2</a>", $str);
         $str = preg_replace("/\[s\](.*)\[\/s\]/iU", "<s>$1</s>", $str);
         $str = preg_replace("/\[b\](.*)\[\/b\]/iU", "<b>$1</b>", $str);
