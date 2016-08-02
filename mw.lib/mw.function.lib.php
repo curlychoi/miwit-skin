@@ -2754,7 +2754,14 @@ function mw_jwplayer($url, $opt="")
         $size = explode("x", $mw_basic['cf_player_size']);
         $opt .= ", width:'{$size[0]}', height:'{$size[1]}' ";
     }
-
+    if (preg_match('/\.(mp3|asf|wma)$/i', basename($url))) {
+        if (preg_match('/height/i', $opt)) {
+            $opt = preg_replace("/height:'[0-9]+'/", "height:'30'", $opt);
+        }
+        else {
+            $opt .= ", height:'30'";
+        }
+    }
     if ($mw_basic['cf_jwplayer_autostart']) {
         $opt = ', autostart:true ' . $opt;
     }
