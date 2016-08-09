@@ -4395,3 +4395,34 @@ function mw_row_delete_point($board, $write)
     }
 }
 
+function mw_jump($bo_table, $wr_id)
+{
+    global $g4;
+    global $mw;
+    global $member;
+
+    $write_table = $g4['write_prefix'].$bo_table;
+    
+    $wr_num = get_next_num($write_table);
+
+    $sql = " update {$write_table} ";
+    $sql.= "    set wr_num = '{$wr_num}' ";
+    $sql.= "      , wr_datetime = '{$g4['time_ymdhis']}' ";
+    $sql.= "  where wr_id = '{$wr_id}' ";
+
+    $qry = sql_query($sql);
+
+    if ($qry) {
+        $sql = " insert into {$mw['jump_log_table']} set ";
+        $sql.= " bo_table = '{$bo_table}' ";
+        $sql.= " , wr_id = '{$wr_id}' ";
+        $sql.= " , mb_id = '{$member['mb_id']}' ";
+        $sql.= " , jp_datetime = '{$g4['time_ymdhis']}' ";
+        sql_query($sql);
+
+        $sql = " update {$g4['board_new_table']} set bn_datetime = '{$g4['time_ymdhis']}' ";
+        $sql.= " where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' ";
+        sql_query($sql);
+    }
+}
+
