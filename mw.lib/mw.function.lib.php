@@ -4426,5 +4426,23 @@ function mw_jump($bo_table, $wr_id)
         $sql.= " where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' ";
         sql_query($sql);
     }
+
+    if (is_notice($wr_id)) add_notice($wr_id);
+}
+
+function add_notice($wr_id)
+{
+    global $g4;
+    global $board;
+    global $notice_div;
+
+    $bo_notice = explode($notice_div, trim($board['bo_notice']));
+    array_unshift($bo_notice, $wr_id);
+
+    $bo_notice = array_unique($bo_notice);
+    $bo_notice = implode($notice_div, $bo_notice);
+
+    $sql = " update {$g4['board_table']} set bo_notice = '{$bo_notice}' where bo_table = '{$board['bo_table']}' ";
+    sql_query($sql, true);
 }
 
