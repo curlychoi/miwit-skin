@@ -46,13 +46,16 @@ if (function_exists("mw_cash_is_membership")) {
 
 if ($mw_basic[cf_must_notice]) { // 공지 필수
     $tmp_notice = str_replace($notice_div, ",", trim($board[bo_notice]));
-    $cnt_notice = sizeof(explode(",", $tmp_notice));
+    $tmp_notice = @explode(",", $tmp_notice);
+    $tmp_notice = @array_filter($tmp_notice, 'strlen');
+    $cnt_notice = @sizeof($tmp_notice);
+    $tmp_notice = @implode(',', $tmp_notice);
 
     if ($tmp_notice) {
         $sql = "select count(*) as cnt from {$mw['must_notice_table']} where bo_table = '$bo_table' and mb_id = '$member[mb_id]' and wr_id in ($tmp_notice)";
-        $row = sql_fetch($sql);
+        $row = sql_fetch($sql, true);
         if ($row[cnt] != $cnt_notice)
-            alert("$board[bo_subject] 공지를 모두 읽으셔야 글작성이 가능합니다.");
+            alert("$board[bo_subject] 공지를 모두 읽으셔야 글작성이 가능합니다. $cnt_notice, {$row['cnt']} ");
     }
 }
 
