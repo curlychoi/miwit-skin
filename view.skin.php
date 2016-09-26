@@ -26,6 +26,8 @@ $mw_is_list = false;
 $mw_is_write = false;
 $mw_is_comment = false;
 
+$del_token = $token;
+
 include_once("$board_skin_path/mw.lib/mw.skin.basic.lib.php");
 include("view_head.skin.php");
 
@@ -835,7 +837,7 @@ or $scrap_href) {
             $.get("<?php echo $board_skin_path?>/mw.proc/mw.scrap.php", {
                 'bo_table' : '<?php echo $bo_table?>',
                 'wr_id' : '<?php echo $wr_id?>',
-                'token' : '<?php echo $token?>' // 토큰 새로만들어야 하는데 이것까지 토큰 쓰기에는 세션이 너무;
+                'token' : '<?php echo $del_token?>' // 토큰 새로만들어야 하는데 이것까지 토큰 쓰기에는 세션이 너무;
             }, function (str) {
                 tmp = str.split('|');
                 if (tmp[0] == 'false') {
@@ -1035,7 +1037,7 @@ function btn_singo_view(wr_id) {
 
 function btn_singo_clear(wr_id) {
     if (confirm("정말 초기화 하시겠습니까?")) {
-        $.get("<?=$board_skin_path?>/mw.proc/mw.btn.singo.clear.php?bo_table=<?=$bo_table?>&token=<?=$token?>&wr_id="+wr_id, function(msg) {
+        $.get("<?=$board_skin_path?>/mw.proc/mw.btn.singo.clear.php?bo_table=<?=$bo_table?>&token=<?=$del_token?>&wr_id="+wr_id, function(msg) {
             alert(msg);
         });
     }
@@ -1055,14 +1057,14 @@ function btn_print() {
 <script>
 function btn_secret() {
     if (confirm("이 게시물을 비밀글로 설정하시겠습니까?")) {
-        $.get("<?=$board_skin_path?>/mw.proc/mw.btn.secret.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$token?>", function (str) {
+        $.get("<?=$board_skin_path?>/mw.proc/mw.btn.secret.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$del_token?>", function (str) {
             alert(str);
         });;
     }
 }
 function btn_nosecret() {
     if (confirm("이 게시물의 비밀글 설정을 해제하시겠습니까?")) {
-        $.get("<?=$board_skin_path?>/mw.proc/mw.btn.secret.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$token?>&flag=no", function (str) {
+        $.get("<?=$board_skin_path?>/mw.proc/mw.btn.secret.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$del_token?>&flag=no", function (str) {
             alert(str);
         });
     }
@@ -1092,7 +1094,7 @@ function btn_now() {
         $.get("<?=$board_skin_path?>/mw.proc/mw.time.now.php", { 
             "bo_table":"<?=$bo_table?>", 
             "wr_id":"<?=$wr_id?>", 
-            "token":"<?=$token?>", 
+            "token":"<?=$del_token?>", 
             "renum":renum 
             } , function (ret) {
                 if (ret)
@@ -1112,7 +1114,7 @@ function btn_view_block() {
     $.post("<?=$board_skin_path?>/mw.proc/mw.view.block.php", {
         "bo_table":"<?=$bo_table?>",
         "wr_id":"<?=$wr_id?>",
-        "token":"<?=$token?>"
+        "token":"<?=$del_token?>"
     }, function (str) {
         if (str)
             alert(str);
@@ -1132,7 +1134,7 @@ function btn_notice() {
     <? } else { ?>
     if (!confirm("이 글을 공지로 등록하시겠습니까?")) return;
     <? } ?>
-    $.get("<?=$board_skin_path?>/mw.proc/mw.notice.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$token?>&is_off="+is_off, function(data) {
+    $.get("<?=$board_skin_path?>/mw.proc/mw.notice.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$del_token?>&is_off="+is_off, function(data) {
         alert(data);
     });
 }
@@ -1144,7 +1146,7 @@ function btn_popup() {
     <? } else { ?>
     if (!confirm("이 글을 팝업공지로 등록하시겠습니까?")) return;
     <? } ?>
-    $.get("<?=$board_skin_path?>/mw.proc/mw.popup.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$token?>", function(data) {
+    $.get("<?=$board_skin_path?>/mw.proc/mw.popup.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$del_token?>", function(data) {
         alert(data);
     });
 }
@@ -1156,7 +1158,7 @@ function btn_comment_hide() {
     <? } else { ?>
     if (!confirm("이 글의 댓글을 보이시겠습니까?")) return;
     <? } ?>
-    $.get("<?=$board_skin_path?>/mw.proc/mw.comment.hide.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$token?>&is_off="+is_off, function(data) {
+    $.get("<?=$board_skin_path?>/mw.proc/mw.comment.hide.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$del_token?>&is_off="+is_off, function(data) {
         alert(data);
         location.reload();
     });
@@ -1315,7 +1317,7 @@ function mw_add_source()
 <script>
 function mw_member_email() {
     if (!confirm("이 글을 회원메일로 등록하시겠습니까?")) return false;
-    $.get("<?=$board_skin_path?>/mw.proc/mw.member.email.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$token?>", function (data) {
+    $.get("<?=$board_skin_path?>/mw.proc/mw.member.email.php?bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>&token=<?=$del_token?>", function (data) {
         if (confirm(data)) location.href = "<?=$g4[admin_path]?>/mail_list.php";
     });
 }
@@ -1326,7 +1328,7 @@ function mw_member_email() {
 <script>
 function btn_copy_new() {
     if (!confirm("이 글을 새글로 등록하시겠습니까?")) return false;
-    $.get("<?=$board_skin_path?>/mw.proc/mw.copy.new.php?token=<?=$token?>&bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>", function (data) {
+    $.get("<?=$board_skin_path?>/mw.proc/mw.copy.new.php?token=<?=$del_token?>&bo_table=<?=$bo_table?>&wr_id=<?=$wr_id?>", function (data) {
         tmp = data.split("|");
         if (tmp[0] == 'true') {
             location.href = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&wr_id="+tmp[1];
