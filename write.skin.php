@@ -1973,6 +1973,26 @@ function fwrite_check(f) {
 <script>
 $(document).ready(function () {
     $("#wr_content").autogrow();
+
+    $(document).on("click", "form[name=fwrite] button:submit", function() {
+        var f = this.form;
+        var bo_table = f.bo_table.value;
+        var token = get_write_token(bo_table);
+
+        if(!token) {
+            alert("토큰 정보가 올바르지 않습니다.");
+            return false;
+        }
+
+        var $f = $(f);
+
+        if(typeof f.token === "undefined")
+            $f.prepend('<input type="hidden" name="token" value="">');
+
+        $f.find("input[name=token]").val(token);
+
+        return true;
+    });
 });
 </script>
 <?  } // 실명인증 ?>
